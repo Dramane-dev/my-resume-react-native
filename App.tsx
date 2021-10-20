@@ -22,29 +22,6 @@ export default function App() {
 
     return (
         <>
-            {/*        <NavigationContainer>
-         <Tab.Navigator
-          screenOptions={({ route }) => ({
-           tabBarIcon: ({ focused, color, size }) => {
-             let iconName: string = '';
- 
-             if (route.name === 'My Resume') {
-               iconName = focused
-                 ? 'ios-information-circle'
-                 : 'ios-information-circle-outline';
-             } else {
-               iconName = 'ios-list';
-             }
-             return <Ionicons name={iconName} size={size} color={color} />;
-           },
-           tabBarActiveTintColor: 'black',
-           tabBarInactiveTintColor: 'gray',
-         })}
-         >
-           <Tab.Screen name="My Resume" component={ HomeScreen } />
-           <Tab.Screen name="Details" component={ Details } />
-         </Tab.Navigator>
-       </NavigationContainer> */}
             <NavigationContainer>
                 {isLogged() ? (
                     <Tab.Navigator
