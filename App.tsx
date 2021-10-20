@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { StyleSheet, Text, View, ScrollView } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
@@ -15,15 +15,23 @@ const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
 export default function App() {
-    const isLogged = async () => {
-        console.log((await AsyncStorage.getItem("user")) !== null ? true : false);
-        return (await AsyncStorage.getItem("user")) !== null ? true : false;
+    const [user, setUser] = useState(false);
+    let isLogged = async () => {
+        if ((await AsyncStorage.getItem("user")) !== null) {
+            setUser(true);
+        } else {
+            setUser(false);
+        }
     };
+
+    useEffect(() => {
+        isLogged();
+    }, [user]);
 
     return (
         <>
             <NavigationContainer>
-                {isLogged() ? (
+                {user ? (
                     <Tab.Navigator
                         screenOptions={({ route }) => ({
                             tabBarIcon: ({ focused, color, size }) => {

@@ -18,17 +18,14 @@ const SignUp = ({ navigation, route }: any) => {
 
     const onNameChange = (e: React.SetStateAction<string>) => {
         setName(e);
-        console.log(e.toString());
     };
 
     const onEmailChange = (e: React.SetStateAction<string>) => {
         setEmail(e);
-        console.log(e.toString());
     };
 
     const onPasswordChange = (e: React.SetStateAction<string>) => {
         setPassword(e);
-        console.log(e.toString());
     };
 
     const onSubmit = async () => {
@@ -40,12 +37,14 @@ const SignUp = ({ navigation, route }: any) => {
 
         console.log(auth);
 
-        AsyncStorage.setItem("user", JSON.stringify(auth));
-        console.log("[- User saved -]");
-
-        AsyncStorage.getItem("user").then((res) => {
-            console.log(res);
-        });
+        await AsyncStorage.setItem("user", JSON.stringify(auth))
+            .then(() => {
+                console.log("[- User saved -]");
+                navigation.navigate("Signin");
+            })
+            .catch((err) => {
+                if (err) console.log(err.message);
+            });
     };
 
     useEffect(() => {

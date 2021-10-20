@@ -1,55 +1,49 @@
-import React from 'react';
-import { 
-    View,
-    Text,
-    FlatList,
-    StyleSheet
-} from 'react-native';
+import React from "react";
+import { View, Text, StyleSheet } from "react-native";
 
 export interface Props {
-    data: string[],
-    title: string
+    data: string[];
+    title: string;
 }
 
 const Article: React.FC<Props> = ({ data, title }) => {
     return (
-        <View style={ styles.container }>
-            <Text style={ styles.title }>{ title }</Text>
-            <FlatList 
-             data={ data }
-             renderItem={ data => 
-              <View>
-                <Text style={ styles.item }>{ '-> ' +  data.item }</Text> 
-              </View>
-             }
-            />
+        <View style={styles.container}>
+            <Text style={styles.title}>{title}</Text>
+            {data.map((value, index) => {
+                return (
+                    <View>
+                        <Text style={styles.item}>{"-> " + value}</Text>
+                    </View>
+                );
+            })}
         </View>
     );
 };
 
 const styles = StyleSheet.create({
     container: {
-        display: 'flex',
-        flexDirection: 'column',
+        display: "flex",
+        flexDirection: "column",
         padding: 30,
-        borderStyle: 'solid',
+        borderStyle: "solid",
         borderRadius: 30,
-        borderColor: 'black',
+        borderColor: "black",
         borderWidth: 1,
-        backgroundColor: '#0E1717',
-        height: 200
+        backgroundColor: "#0E1717",
+        height: 200,
     },
     title: {
         fontSize: 28,
-        fontWeight: 'bold',
+        fontWeight: "bold",
         marginBottom: 10,
-        color: '#fff'
+        color: "#fff",
     },
-    item : {
+    item: {
         fontSize: 15,
-        fontWeight: '700',
-        color: '#fff'
-    }
+        fontWeight: "700",
+        color: "#fff",
+    },
 });
 
 export default Article;
