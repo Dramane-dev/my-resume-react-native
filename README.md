@@ -8,15 +8,21 @@
 
 ## Technologies
 
--   React Native
+-   React Native ⚛️
 -   Expo
+-   TypeScript 🟦
 
 ## File structure
 
-The application contains 3 folders :
+The application contains 7 folders :
 
--   ReactJs ⚛️
--   TypeScript 🟦
+-   .expo
+-   .expo-shared
+-   .husky
+-   assets
+-   components
+-   hooks
+-   node_modules
 
 ## Installation
 
