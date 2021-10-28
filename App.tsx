@@ -14,6 +14,44 @@ import Details from "./components/Details/Details";
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
+function Root() {
+    return (
+        <>
+            <Tab.Navigator
+                screenOptions={({ route }) => ({
+                    tabBarIcon: ({ focused, color, size }) => {
+                        let iconName: string = "";
+
+                        if (route.name === "My Resume") {
+                            iconName = focused ? "ios-information-circle" : "ios-information-circle-outline";
+                        } else {
+                            iconName = "ios-list";
+                        }
+                        return <Ionicons name={iconName} size={size} color={color} />;
+                    },
+                    tabBarActiveTintColor: "black",
+                    tabBarInactiveTintColor: "gray",
+                })}
+            >
+                <Tab.Screen name="My Resume" component={HomeScreen} />
+                <Tab.Screen name="Details" component={Details} />
+            </Tab.Navigator>
+        </>
+    );
+}
+
+function StackScreens() {
+    return (
+        <>
+            <Stack.Navigator>
+                <Stack.Screen name="Signin" component={SignIn} options={{ headerShown: false }} />
+                <Stack.Screen name="Signup" component={SignUp} options={{ headerShown: false }} />
+                <Stack.Screen name="Root" component={Root} options={{ headerShown: false }} />
+            </Stack.Navigator>
+        </>
+    );
+}
+
 export default function App() {
     const [user, setUser] = useState(false);
     let isLogged = async () => {
@@ -55,6 +93,7 @@ export default function App() {
                     <Stack.Navigator>
                         <Stack.Screen name="Signin" component={SignIn} options={{ headerShown: false }} />
                         <Stack.Screen name="Signup" component={SignUp} options={{ headerShown: false }} />
+                        <Stack.Screen name="Root" component={Root} options={{ headerShown: false }} />
                     </Stack.Navigator>
                 )}
             </NavigationContainer>

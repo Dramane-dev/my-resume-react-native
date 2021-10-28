@@ -1,14 +1,6 @@
 import React, { useState } from "react";
-import { View, Text, FlatList, TextInput, Button, KeyboardAvoidingView, StyleSheet, Platform } from "react-native";
+import { View, Text, TextInput, Button, KeyboardAvoidingView, StyleSheet, Platform } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-
-import { FormData } from "../../hooks/context";
-
-type Inputs = {
-    name: string;
-    email: string;
-    phone: number;
-};
 
 const Separator = () => <View style={styles.separator} />;
 
@@ -109,9 +101,9 @@ const styles = StyleSheet.create({
         borderBottomWidth: StyleSheet.hairlineWidth,
     },
     button: {
+        height: 40,
         marginTop: 10,
         backgroundColor: "#fff",
-        height: 40,
     },
 });
 

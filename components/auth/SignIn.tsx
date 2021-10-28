@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { StyleSheet, View, Text, Image, KeyboardAvoidingView, Platform, Button, TextInput } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { NativeModules } from "react-native";
 
 const Separator = () => <View style={styles.separator} />;
 
@@ -23,27 +24,36 @@ const SignIn = ({ navigation }: any) => {
     };
 
     const onSubmit = async () => {
-        setAuth({
+        await setAuth({
             email,
             password,
         });
+
+        console.log(auth);
 
         let user: any = await AsyncStorage.getItem("user");
 
         if (user !== null && JSON.parse(user).email === email && JSON.parse(user).password === password) {
             console.log("[- User found! -]");
-            navigation.navigate("My Resume");
+            navigation.navigate("Root", { screen: "My Resume" });
         } else {
             navigation.navigate("Signup");
         }
     };
 
     useEffect(() => {
-        AsyncStorage.getItem("user").then((res) => {
-            let data: any = res;
-            console.log(JSON.parse(data).email);
-            console.log(JSON.parse(data).password);
-        });
+        console.log("[- Sign In -]");
+        AsyncStorage.getItem("user")
+            .then((res) => {
+                let authDatas: any = res;
+                if (authDatas !== null) {
+                    console.log(JSON.parse(authDatas).email);
+                    console.log(JSON.parse(authDatas).password);
+                }
+            })
+            .catch((err) => {
+                if (err) console.log(err.message);
+            });
     }, []);
 
     return (

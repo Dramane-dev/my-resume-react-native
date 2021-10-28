@@ -4,8 +4,8 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Separator = () => <View style={styles.separator} />;
 
-const SignUp = ({ navigation, route }: any) => {
-    const [auth, setAuth] = useState({});
+const SignUp = ({ navigation }: any) => {
+    const [authInfos, setAuthInfos] = useState({});
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -28,15 +28,7 @@ const SignUp = ({ navigation, route }: any) => {
         setPassword(e);
     };
 
-    const onSubmit = async () => {
-        await setAuth({
-            name,
-            email,
-            password,
-        });
-
-        console.log(auth);
-
+    const save = async (auth: any) => {
         await AsyncStorage.setItem("user", JSON.stringify(auth))
             .then(() => {
                 console.log("[- User saved -]");
@@ -47,10 +39,28 @@ const SignUp = ({ navigation, route }: any) => {
             });
     };
 
+    const onSubmit = async () => {
+        const auth = {
+            name,
+            email,
+            password,
+        };
+        save(auth).then(() => navigation.navigate("Signin"));
+    };
+
     useEffect(() => {
-        AsyncStorage.getItem("user").then((res) => {
-            console.log(res);
-        });
+        console.log("[- Sign Up -]");
+        AsyncStorage.getItem("user")
+            .then((res) => {
+                let data: any = res;
+                if (JSON.parse(data).name !== undefined) {
+                    console.log(JSON.parse(data).email);
+                    console.log(JSON.parse(data).password);
+                }
+            })
+            .catch((err) => {
+                if (err) console.log(err.message);
+            });
     }, []);
 
     return (
@@ -80,7 +90,11 @@ const SignUp = ({ navigation, route }: any) => {
                         </View>
                         <Separator />
                         <View style={styles.button}>
-                            <Button title={signInButtonTitle} color="#000" onPress={() => navigation.goBack()} />
+                            <Button
+                                title={signInButtonTitle}
+                                color="#000"
+                                onPress={() => navigation.navigate("Signin")}
+                            />
                         </View>
                     </View>
                 </View>

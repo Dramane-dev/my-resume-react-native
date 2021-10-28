@@ -12,7 +12,7 @@ const Article: React.FC<Props> = ({ data, title }) => {
             <Text style={styles.title}>{title}</Text>
             {data.map((value, index) => {
                 return (
-                    <View>
+                    <View key={index}>
                         <Text style={styles.item}>{"-> " + value}</Text>
                     </View>
                 );
